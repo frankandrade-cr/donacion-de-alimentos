@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aprovecha: que ningún alimento se pierda</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;600&display=swap">
+<style>
+:root{--bg:#f2f6ef;--surface:#fff;--ink:#14231c;--muted:#52665b;--green:#1f5a3f;--green-ink:#fff;--tomato:#d6452f;--squash:#e8b431;--line:#d3ddd0;--ok:#2f7d4f;--warn:#b7791f;--bad:#c0392b;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0f1a14;--surface:#172720;--ink:#eaf2ec;--muted:#9fb5a8;--green:#5fc08c;--green-ink:#0f1a14;--tomato:#ff7a63;--squash:#f0c24d;--line:#2b4036;--ok:#6ccf94;--warn:#f0c24d;--bad:#ff7a63}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0f1a14;--surface:#172720;--ink:#eaf2ec;--muted:#9fb5a8;--green:#5fc08c;--green-ink:#0f1a14;--tomato:#ff7a63;--squash:#f0c24d;--line:#2b4036;--ok:#6ccf94;--warn:#f0c24d;--bad:#ff7a63}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 Figtree,system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque",Figtree,system-ui,sans-serif;line-height:1.1;margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--squash);outline-offset:2px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 18px}
+header.top{border-bottom:1px solid var(--line);background:var(--bg)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;flex-wrap:wrap}
+.logo{font:800 22px "Bricolage Grotesque",sans-serif;text-decoration:none;color:var(--green)}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{padding:8px 14px;border-radius:99px;text-decoration:none;font-weight:600;color:var(--muted)}
+nav a[aria-current="page"]{background:var(--green);color:var(--green-ink)}
+.hero{padding:36px 0 24px;display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center}
+.hero h1{font-size:clamp(34px,6vw,58px);font-weight:800;letter-spacing:-.02em}
+.hero p{color:var(--muted);max-width:46ch;margin:14px 0 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}
+.stat{border-left:4px solid var(--green);padding-left:10px}
+.stat b{display:block;font:800 28px "Bricolage Grotesque",sans-serif}
+.stat span{font-size:13px;color:var(--muted)}
+.stat.t{border-color:var(--tomato)}.stat.s{border-color:var(--squash)}
+.clock{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.clock h2{font-size:18px;margin-bottom:10px}
+.mini{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--line)}
+.mini:first-of-type{border-top:0}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:13px;font-weight:600;white-space:nowrap;border:1.5px solid currentColor}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}
+main{padding:10px 0 50px}
+.grid{display:grid;grid-template-columns:320px 1fr;gap:22px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.panel h2{font-size:22px;margin-bottom:12px}
+label{display:block;font-weight:600;font-size:14px;margin:10px 0 4px}
+input,select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:8px;padding:9px 10px}
+textarea{min-height:80px;resize:vertical}
+button{font:600 15px Figtree,sans-serif;border:0;border-radius:8px;padding:9px 14px;cursor:pointer;background:var(--green);color:var(--green-ink)}
+button.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+button.danger{background:transparent;color:var(--bad);border:1.5px solid var(--bad)}
+.full{width:100%;margin-top:14px}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:120px}
+.card{display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap;padding:14px 0;border-top:1px solid var(--line)}
+.card:first-of-type{border-top:0}
+.card h3{font-size:18px}
+.card small{color:var(--muted);display:block}
+.acts{display:flex;gap:6px;flex-wrap:wrap}
+.acts button{padding:6px 10px;font-size:14px}
+.empty{color:var(--muted);padding:18px 0}
+.tip{padding:14px 0;border-top:1px solid var(--line)}.tip:first-of-type{border-top:0}
+.tip p{margin:4px 0 0}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.chips button{padding:5px 12px;font-size:14px}
+.chips button[aria-pressed="true"]{background:var(--green);color:var(--green-ink);border-color:var(--green)}
+.bars .b{display:grid;grid-template-columns:130px 1fr 56px;gap:10px;align-items:center;margin:8px 0;font-size:14px}
+.bars .t{height:14px;background:var(--bg);border-radius:7px;overflow:hidden}
+.bars .t i{display:block;height:100%;background:var(--tomato)}
+.pledge{margin-top:22px;border-radius:14px;padding:18px;background:var(--green);color:var(--green-ink)}
+.pledge h2{font-size:22px}.pledge ul{margin:10px 0 0;padding-left:20px}
+.pledge li{margin:4px 0}
+footer{border-top:1px solid var(--line);padding:20px 0;color:var(--muted);font-size:14px}
+@media (max-width:800px){.hero,.grid{grid-template-columns:1fr}.bars .b{grid-template-columns:100px 1fr 50px}}
+@media (prefers-reduced-motion:no-preference){.bars .t i{transition:width .5s}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap bar">
+<a class="logo" href="#inicio">Aprovecha</a>
+<nav aria-label="Secciones" id="nav"></nav>
+</div></header>
+<div class="wrap">
+<section class="hero" id="hero"></section>
+<main id="view" aria-live="polite"></main>
+</div>
+<footer><div class="wrap">Proyecto académico sobre desperdicio de alimentos. Los datos se guardan solo en este navegador.</div></footer>
+
+<script>
+var KEY="aprovecha-v1",mem=null;
+var day=864e5;
+function iso(n){return new Date(Date.now()+n*day).toISOString().slice(0,10)}
+function seed(){return{
+items:[{id:1,name:"Yogur natural",kg:0.5,exp:iso(1)},{id:2,name:"Plátanos maduros",kg:2,exp:iso(2)},{id:3,name:"Pan de molde",kg:0.6,exp:iso(4)},{id:4,name:"Arroz",kg:3,exp:iso(120)}],
+dons:[{id:1,name:"Verduras surtidas",kg:4,place:"Barrio Transformación",contact:"Panadería La Espiga",res:false},{id:2,name:"Pan del día",kg:3,place:"Centro",contact:"Restaurante El Muelle",res:false}],
+tips:[{id:1,title:"Plátano muy maduro",text:"Congélalo pelado en trozos: sirve para batidos, tortas y coladas.",tag:"Frutas"},{id:2,title:"Pan duro",text:"Rállalo para empanizar o tuéstalo en cubos para ensaladas y sopas.",tag:"Panadería"},{id:3,title:"Fecha de vencimiento vs. consumo preferente",text:"«Vence» indica seguridad; «consumir preferiblemente» indica calidad. Un alimento puede ser seguro después de esta última.",tag:"General"},{id:4,title:"Tallos y hojas",text:"Los tallos de brócoli, las hojas de zanahoria y la cáscara limpia de verduras sirven para caldos.",tag:"Verduras"},{id:5,title:"Primero lo que vence primero",text:"Al guardar la compra, pon adelante lo que vence antes y atrás lo nuevo.",tag:"General"}],
+waste:[{id:1,name:"Tomates",kg:1.2,reason:"Se dañaron",date:iso(-6)},{id:2,name:"Leche",kg:1,reason:"Venció",date:iso(-4)},{id:3,name:"Sobras de almuerzo",kg:0.8,reason:"Cocinamos de más",date:iso(-2)}],
+saved:6.5,nid:100}}
+function load(){try{var r=localStorage.getItem(KEY);if(r)return JSON.parse(r)}catch(e){}return mem||seed()}
+var S=load();
+function save(){mem=S;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function nid(){return ++S.nid}
+function left(d){var a=new Date(d+"T00:00:00"),b=new Date();b.setHours(0,0,0,0);return Math.round((a-b)/day)}
+function badge(d){var n=left(d);if(n<0)return'<span class="pill bad">Vencido</span>';if(n===0)return'<span class="pill bad">Vence hoy</span>';if(n<=3)return'<span class="pill warn">'+n+(n===1?" día":" días")+'</span>';return'<span class="pill ok">'+n+' días</span>'}
+function kg(n){return(Math.round(n*10)/10).toLocaleString("es-CO")+" kg"}
+var routes={inicio:"Inventario",donaciones:"Donaciones",consejos:"Consejos",desperdicio:"Desperdicio"};
+var filtro="Todos";
+
+function hero(){
+var wasted=S.waste.reduce(function(a,w){return a+w.kg},0);
+var resc=S.saved+S.dons.filter(function(d){return d.res}).reduce(function(a,d){return a+d.kg},0);
+var urg=S.items.slice().sort(function(a,b){return left(a.exp)-left(b.exp)}).slice(0,3);
+document.getElementById("hero").innerHTML=
+'<div><h1>Que ningún alimento se pierda</h1><p>Anota lo que está por vencer, dónalo a quien lo necesita y mide cuánto aprovechas.</p>'+
+'<div class="stats"><div class="stat"><b>'+kg(resc)+'</b><span>aprovechados</span></div><div class="stat t"><b>'+kg(wasted)+'</b><span>desperdiciados</span></div><div class="stat s"><b>'+S.dons.filter(function(d){return!d.res}).length+'</b><span>donaciones disponibles</span></div></div></div>'+
+'<div class="clock"><h2>Lo que vence primero</h2>'+(urg.length?urg.map(function(i){return'<div class="mini"><span>'+esc(i.name)+'</span>'+badge(i.exp)+'</div>'}).join(""):'<div class="empty">No hay alimentos registrados.</div>')+'</div>';
+}
+
+function vInicio(){
+var items=S.items.slice().sort(function(a,b){return left(a.exp)-left(b.exp)});
+return'<div class="grid"><div class="panel"><h2>Registrar alimento</h2><form id="f-item"><label for="n">Alimento</label><input id="n" required maxlength="60"><div class="row"><div><label for="k">Cantidad (kg)</label><input id="k" type="number" step="0.1" min="0.1" required></div><div><label for="e">Fecha de vencimiento</label><input id="e" type="date" required></div></div><button class="full">Guardar alimento</button></form></div>'+
+'<div class="panel"><h2>Mi inventario</h2>'+(items.length?items.map(function(i){return'<div class="card"><div><h3>'+esc(i.name)+'</h3><small>'+kg(i.kg)+' · vence el '+i.exp+'</small></div><div class="acts">'+badge(i.exp)+'<button data-a="eat" data-id="'+i.id+'">Lo consumí</button><button class="ghost" data-a="don" data-id="'+i.id+'">Donar</button><button class="danger" data-a="lose" data-id="'+i.id+'">Se perdió</button></div></div>'}).join(""):'<div class="empty">Tu inventario está vacío. Registra un alimento para recibir su fecha de vencimiento en esta lista.</div>')+'</div></div>'+
+'<div class="pledge"><h2>Consumo responsable esta semana</h2><ul><li>Planea el menú antes de comprar.</li><li>Revisa la nevera antes de salir al mercado.</li><li>Cocina porciones que realmente vas a comer.</li><li>Dona lo que no vas a alcanzar a consumir.</li></ul></div>';
+}
+function vDon(){
+return'<div class="grid"><div class="panel"><h2>Publicar donación</h2><form id="f-don"><label for="dn">Alimento</label><input id="dn" required maxlength="60"><label for="dk">Cantidad (kg)</label><input id="dk" type="number" step="0.1" min="0.1" required><label for="dp">Barrio o zona de recogida</label><input id="dp" required maxlength="60"><label for="dc">Quién dona</label><input id="dc" required maxlength="60"><button class="full">Publicar donación</button></form></div>'+
+'<div class="panel"><h2>Alimentos disponibles</h2>'+(S.dons.length?S.dons.map(function(d){return'<div class="card"><div><h3>'+esc(d.name)+' · '+kg(d.kg)+'</h3><small>Recoger en: '+esc(d.place)+'. Dona: '+esc(d.contact)+'</small></div><div class="acts">'+(d.res?'<span class="pill ok">Reservada</span>':'<button data-a="res" data-id="'+d.id+'">Reservar</button>')+'<button class="ghost" data-a="deld" data-id="'+d.id+'">Quitar</button></div></div>'}).join(""):'<div class="empty">No hay donaciones publicadas todavía. Publica la primera desde el formulario.</div>')+'</div></div>';
+}
+function vTips(){
+var tags=["Todos"];S.tips.forEach(function(t){if(tags.indexOf(t.tag)<0)tags.push(t.tag)});
+var list=S.tips.filter(function(t){return filtro==="Todos"||t.tag===filtro});
+return'<div class="grid"><div class="panel"><h2>Compartir un consejo</h2><form id="f-tip"><label for="tt">Título</label><input id="tt" required maxlength="80"><label for="tg">Categoría</label><select id="tg"><option>General</option><option>Frutas</option><option>Verduras</option><option>Panadería</option><option>Carnes y lácteos</option></select><label for="tx">Consejo</label><textarea id="tx" required maxlength="400"></textarea><button class="full">Publicar consejo</button></form></div>'+
+'<div class="panel"><h2>Conservar y aprovechar</h2><div class="chips">'+tags.map(function(t){return'<button class="ghost" data-a="tag" data-v="'+esc(t)+'" aria-pressed="'+(t===filtro)+'">'+esc(t)+'</button>'}).join("")+'</div>'+
+list.map(function(t){return'<div class="tip"><h3>'+esc(t.title)+'</h3><span class="pill ok">'+esc(t.tag)+'</span><p>'+esc(t.text)+'</p></div>'}).join("")+'</div></div>';
+}
+function vWaste(){
+var tot=S.waste.reduce(function(a,w){return a+w.kg},0),by={};
+S.waste.forEach(function(w){by[w.reason]=(by[w.reason]||0)+w.kg});
+var keys=Object.keys(by).sort(function(a,b){return by[b]-by[a]}),max=keys.length?by[keys[0]]:1;
+return'<div class="grid"><div class="panel"><h2>Registrar desperdicio</h2><form id="f-w"><label for="wn">Alimento</label><input id="wn" required maxlength="60"><label for="wk">Cantidad (kg)</label><input id="wk" type="number" step="0.1" min="0.1" required><label for="wr">Motivo</label><select id="wr"><option>Venció</option><option>Se dañó</option><option>Compramos de más</option><option>Cocinamos de más</option><option>Mal almacenado</option></select><button class="full">Registrar</button></form></div>'+
+'<div><div class="panel"><h2>Total desperdiciado: '+kg(tot)+'</h2><div class="bars">'+(keys.length?keys.map(function(k){return'<div class="b"><span>'+esc(k)+'</span><div class="t"><i style="width:'+Math.round(by[k]/max*100)+'%"></i></div><span>'+kg(by[k])+'</span></div>'}).join(""):'<div class="empty">Sin registros. Anota lo que se pierda para ver sus causas.</div>')+'</div></div>'+
+'<div class="panel" style="margin-top:18px"><h2>Historial</h2>'+(S.waste.length?S.waste.slice().reverse().map(function(w){return'<div class="card"><div><h3>'+esc(w.name)+'</h3><small>'+w.date+' · '+esc(w.reason)+'</small></div><div class="acts"><span class="pill bad">'+kg(w.kg)+'</span><button class="ghost" data-a="delw" data-id="'+w.id+'">Borrar</button></div></div>'}).join(""):'<div class="empty">Aún no hay registros.</div>')+'</div></div></div>';
+}
+
+function render(){
+var r=(location.hash||"#inicio").slice(1);if(!routes[r])r="inicio";
+document.getElementById("nav").innerHTML=Object.keys(routes).map(function(k){return'<a href="#'+k+'"'+(k===r?' aria-current="page"':'')+'>'+routes[k]+'</a>'}).join("");
+hero();
+document.getElementById("view").innerHTML=r==="inicio"?vInicio():r==="donaciones"?vDon():r==="consejos"?vTips():vWaste();
+}
+function find(arr,id){for(var i=0;i<arr.length;i++)if(arr[i].id==id)return i;return-1}
+function v(id){return document.getElementById(id).value.trim()}
+
+document.addEventListener("submit",function(e){
+e.preventDefault();var f=e.target.id;
+if(f==="f-item")S.items.push({id:nid(),name:v("n"),kg:+v("k"),exp:v("e")});
+if(f==="f-don")S.dons.unshift({id:nid(),name:v("dn"),kg:+v("dk"),place:v("dp"),contact:v("dc"),res:false});
+if(f==="f-tip")S.tips.unshift({id:nid(),title:v("tt"),text:v("tx"),tag:v("tg")});
+if(f==="f-w")S.waste.push({id:nid(),name:v("wn"),kg:+v("wk"),reason:v("wr"),date:iso(0)});
+save();render();
+});
+document.addEventListener("click",function(e){
+var b=e.target.closest("button[data-a]");if(!b)return;
+var a=b.dataset.a,id=b.dataset.id,i;
+if(a==="tag"){filtro=b.dataset.v;render();return}
+if(a==="eat"||a==="don"||a==="lose"){
+i=find(S.items,id);if(i<0)return;var it=S.items.splice(i,1)[0];
+if(a==="eat")S.saved+=it.kg;
+if(a==="don")S.dons.unshift({id:nid(),name:it.name,kg:it.kg,place:"Por definir",contact:"Yo",res:false});
+if(a==="lose")S.waste.push({id:nid(),name:it.name,kg:it.kg,reason:left(it.exp)<0?"Venció":"Se dañó",date:iso(0)});
+}
+if(a==="res"){i=find(S.dons,id);if(i>=0)S.dons[i].res=true}
+if(a==="deld"){i=find(S.dons,id);if(i>=0)S.dons.splice(i,1)}
+if(a==="delw"){i=find(S.waste,id);if(i>=0)S.waste.splice(i,1)}
+save();render();
+});
+window.addEventListener("hashchange",function(){render();window.scrollTo(0,0)});
+render();
+</script>
+</body>
+</html>
